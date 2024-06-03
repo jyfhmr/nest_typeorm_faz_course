@@ -1,0 +1,17 @@
+
+
+ENTITY:   Una entidad en nest o entity serìa el equivalente a una tabla
+
+
+REPOSITORY:   Repository es una clase proporcionada por TypeORM (o cualquier otro ORM compatible) 
+que permite interactuar con la base de datos de una manera más estructurada y orientada a objetos. 
+Al definir un Repository para una entidad específica, puedes realizar operaciones CRUD 
+(Crear, Leer, Actualizar, Eliminar) 
+y otras consultas más avanzadas directamente en esa entidad.
+
+
+El repositorio crea la tabla en minusculas y plural
+
+
+Para combinar 2 objetos puedes hacer Object.assign(a,b) 
+el segundo parametro sobreescribe si son las mismas propiedades que el primer objeto, sino se suma
