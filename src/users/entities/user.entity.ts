@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from "typeorm";
 import { Profile } from "./profile.entity";
+import { Post } from "src/posts/entities/post.entity";
 
 
 @Entity() //tabla
@@ -23,5 +24,9 @@ export class User {
   @JoinColumn()
   profile: Profile //profile es el nombre de la columna Profile es la otra tabla
                    //te añade una columna con el nombre que le pusiste +Id basicamente la relaciona
+
+
+  @OneToMany(()=> Post, post => post.author)    
+  posts: Post[]           
 
 }

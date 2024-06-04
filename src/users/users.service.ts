@@ -40,8 +40,8 @@ export class UsersService {
 
   findAll() { //retorna toods los usuarios
 
-    return this.userRepository.find()
-
+    return this.userRepository.find({relations: ["profile"]}) //No te traes las columnas con las foreign keys
+                                                              //pero si incluyes las relaciones, te lo da completamente, con el objeto incluido
   }
 
   async findOne(id: number) {
@@ -102,24 +102,23 @@ export class UsersService {
   }
 
 
-  async createProfile(id: number, profileData: CreateProfileDto){
-
-    const userFound = await this.userRepository.findOne({where: {
-      id: id
-    }})
-
-    if(!userFound){
-      return new HttpException("user not found", 404)
+  async createProfile(id: number, profileData: CreateProfileDto) {
+    console.log(" creando perfil  ")
+    const userFound = await this.userRepository.findOne({ where: { id: id } });
+  
+    if (!userFound) {
+      return new HttpException("user not found", 404);
     }
-
-   const newProfile = this.profileRepository.create(profileData)
-
-   const savedProfile = await this.userRepository.save(newProfile)
-
-   userFound.profile = savedProfile
-
-   return this.userRepository.save(userFound)
-
+  
+    const newProfile = this.profileRepository.create(profileData);
+    const savedProfile = await this.profileRepository.save(newProfile);
+  
+    userFound.profile = savedProfile; //al asignar la entidad a la columna, gracias a la relacion que definí en los entity
+                                     //typeorm tomará el id del savedProfile y lo meterá en la columna profile, para asi mantener la relacion
+                                     //esa es la sintaxis básicamente
+    console.log(userFound)
+    return this.userRepository.save(userFound);
   }
+  
 
 }

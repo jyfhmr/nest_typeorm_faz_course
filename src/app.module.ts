@@ -5,6 +5,8 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { Profile } from './users/entities/profile.entity';
+import { PostsModule } from './posts/posts.module';
+import { Post } from './posts/entities/post.entity';
 
 @Module({
   imports: [
@@ -15,10 +17,13 @@ import { Profile } from './users/entities/profile.entity';
       port: 3306,
       password: "",
       database: "nestdb",
-      entities: [User, Profile],
+      entities: [User, Profile, Post],
       synchronize: true
     }),
-    UsersModule],
+    UsersModule,
+    PostsModule,
+    
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
